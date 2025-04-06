@@ -11,16 +11,19 @@ import json
 def run_app():
     root = tk.Tk()
     root.title("Restaurant App")
-    root.geometry("500x300")
+    root.geometry("600x400")
 
     cart = CartManager()
     with open("data/products.json") as f:
         products = [Product(**product) for product in json.load(f)]
 
-    left = ProductList(root, products, cart)
+    top_frame = tk.Frame(root)
+    top_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
+    left = ProductList(top_frame, products, cart)
     left.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
-    right = SelectedList(root, cart)
+    right = SelectedList(top_frame, cart)
     right.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
     left.set_selected_list(right)
