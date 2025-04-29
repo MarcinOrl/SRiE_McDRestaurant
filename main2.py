@@ -18,6 +18,12 @@ PRODUCTS = {
     "cheeseburger": 11.49,
     "double_burger": 13.99,
     "onion_rings": 4.79,
+    "vegan_burger": 12.99,
+    "smoothie": 7.99,
+    "hot_dog": 9.49,
+    "latte": 6.29,
+    "mozzarella_sticks": 6.99,
+    "brownie": 5.49,
 }
 
 
@@ -34,8 +40,8 @@ class RestaurantExpert(KnowledgeEngine):
         super().__init__()
         self.total = 0.0
         self.promotions = []
-
-    @Rule(Item(product=MATCH.product))
+#dodawanie ceny tylko nieużytych produktów
+    @Rule(Item(product=MATCH.product, used=False))
     def regular_price(self, product):
         self.total += PRODUCTS[product]
 
@@ -186,6 +192,46 @@ class RestaurantExpert(KnowledgeEngine):
     def promo15(self, a, b):
         self.total -= 1.00
         self.promotions.append("Cheeseburger + frytki: -1.00 PLN")
+        self.modify(a, used=True)
+        self.modify(b, used=True)
+
+    @Rule(
+        AS.a << Item(product="vegan_burger", used=False),
+        AS.b << Item(product="smoothie", used=False),
+    )
+    def promo16(self, a, b):
+        self.total -= 2.50
+        self.promotions.append("Vegan burger + smoothie: -2.50 PLN")
+        self.modify(a, used=True)
+        self.modify(b, used=True)
+
+    @Rule(
+        AS.a << Item(product="hot_dog", used=False),
+        AS.b << Item(product="cola", used=False),
+    )
+    def promo17(self, a, b):
+        self.total -= 1.00
+        self.promotions.append("Hot dog + cola: -1.00 PLN")
+        self.modify(a, used=True)
+        self.modify(b, used=True)
+
+    @Rule(
+        AS.a << Item(product="latte", used=False),
+        AS.b << Item(product="brownie", used=False),
+    )
+    def promo18(self, a, b):
+        self.total -= 1.50
+        self.promotions.append("Latte + brownie: -1.50 PLN")
+        self.modify(a, used=True)
+        self.modify(b, used=True)
+
+    @Rule(
+        AS.a << Item(product="mozzarella_sticks", used=False),
+        AS.b << Item(product="fries", used=False),
+    )
+    def promo19(self, a, b):
+        self.total -= 1.00
+        self.promotions.append("Mozzarella sticks + frytki: -1.00 PLN")
         self.modify(a, used=True)
         self.modify(b, used=True)
 
