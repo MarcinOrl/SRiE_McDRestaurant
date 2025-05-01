@@ -40,8 +40,8 @@ class RestaurantExpert(KnowledgeEngine):
         super().__init__()
         self.total = 0.0
         self.promotions = []
-#dodawanie ceny tylko nieużytych produktów
-    @Rule(Item(product=MATCH.product, used=False))
+
+    @Rule(Item(product=MATCH.product))
     def regular_price(self, product):
         self.total += PRODUCTS[product]
 
@@ -234,6 +234,15 @@ class RestaurantExpert(KnowledgeEngine):
         self.promotions.append("Mozzarella sticks + frytki: -1.00 PLN")
         self.modify(a, used=True)
         self.modify(b, used=True)
+
+    @Rule()
+    def discount_over_50(self):
+        if self.total > 50:
+            discount = self.total * 0.10  # 10% z łącznej ceny
+            self.total -= discount
+            self.promotions.append(
+                f"Zniżka 10% na zamówienie powyżej 50 PLN: -{discount:.2f} PLN"
+            )
 
 
 # --- GUI aplikacji ---
