@@ -34,6 +34,10 @@ class Item(Fact):
     used: bool = False
 
 
+class VIPStatus(Fact):
+    status: bool = False
+
+
 # --- Silnik regułowy ---
 class RestaurantExpert(KnowledgeEngine):
     def __init__(self):
@@ -45,9 +49,24 @@ class RestaurantExpert(KnowledgeEngine):
     def regular_price(self, product):
         self.total += PRODUCTS[product]
 
+    # @Rule(
+    #     AS.a << Item(product="burger", used=False, name=MATCH.na),
+    #     AS.b << Item(product="burger", used=False, name=MATCH.nb),
+    #     AS.c << Item(product="burger", used=False, name=MATCH.nc),
+    #     TEST(lambda na, nb, nc: na < nb < nc),
+    #     salience=10,
+    # )
+    # def three_burgers_in_two(self, a, b, c):
+    #     self.total -= PRODUCTS["burger"]
+    #     self.promotions.append("3 burgery w cenie 2: -10.99 PLN")
+    #     self.modify(a, used=True)
+    #     self.modify(b, used=True)
+    #     self.modify(c, used=True)
+
     @Rule(
         AS.a << Item(product="burger", used=False),
         AS.b << Item(product="fries", used=False),
+        salience=0,
     )
     def promo1(self, a, b):
         self.total -= 2.00
@@ -58,6 +77,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="burger", used=False),
         AS.b << Item(product="cola", used=False),
+        salience=0,
     )
     def promo2(self, a, b):
         self.total -= 1.00
@@ -68,6 +88,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="ice_cream", used=False),
         AS.b << Item(product="cola", used=False),
+        salience=0,
     )
     def promo3(self, a, b):
         self.total -= 1.00
@@ -78,6 +99,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="wrap", used=False),
         AS.b << Item(product="salad", used=False),
+        salience=0,
     )
     def promo4(self, a, b):
         self.total -= 2.00
@@ -88,6 +110,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="burger", used=False),
         AS.b << Item(product="apple_pie", used=False),
+        salience=0,
     )
     def promo5(self, a, b):
         self.total -= 1.00
@@ -98,6 +121,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="coffee", used=False),
         AS.b << Item(product="milkshake", used=False),
+        salience=0,
     )
     def promo6(self, a, b):
         self.total -= 1.00
@@ -108,6 +132,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="double_burger", used=False),
         AS.b << Item(product="cola", used=False),
+        salience=0,
     )
     def promo7(self, a, b):
         self.total -= 2.00
@@ -118,6 +143,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="nuggets", used=False),
         AS.b << Item(product="fries", used=False),
+        salience=0,
     )
     def promo8(self, a, b):
         self.total -= 1.00
@@ -128,6 +154,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="tea", used=False),
         AS.b << Item(product="apple_pie", used=False),
+        salience=0,
     )
     def promo9(self, a, b):
         self.total -= 1.00
@@ -138,6 +165,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="cheeseburger", used=False),
         AS.b << Item(product="cola", used=False),
+        salience=0,
     )
     def promo10(self, a, b):
         self.total -= 1.00
@@ -148,6 +176,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="onion_rings", used=False),
         AS.b << Item(product="wrap", used=False),
+        salience=0,
     )
     def promo11(self, a, b):
         self.total -= 1.00
@@ -158,6 +187,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="salad", used=False),
         AS.b << Item(product="water", used=False),
+        salience=0,
     )
     def promo12(self, a, b):
         self.total -= 1.00
@@ -168,6 +198,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="coffee", used=False),
         AS.b << Item(product="onion_rings", used=False),
+        salience=0,
     )
     def promo13(self, a, b):
         self.total -= 1.00
@@ -178,6 +209,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="milkshake", used=False),
         AS.b << Item(product="ice_cream", used=False),
+        salience=0,
     )
     def promo14(self, a, b):
         self.total -= 1.00
@@ -188,6 +220,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="cheeseburger", used=False),
         AS.b << Item(product="fries", used=False),
+        salience=0,
     )
     def promo15(self, a, b):
         self.total -= 1.00
@@ -198,6 +231,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="vegan_burger", used=False),
         AS.b << Item(product="smoothie", used=False),
+        salience=0,
     )
     def promo16(self, a, b):
         self.total -= 2.50
@@ -208,6 +242,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="hot_dog", used=False),
         AS.b << Item(product="cola", used=False),
+        salience=0,
     )
     def promo17(self, a, b):
         self.total -= 1.00
@@ -218,6 +253,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="latte", used=False),
         AS.b << Item(product="brownie", used=False),
+        salience=0,
     )
     def promo18(self, a, b):
         self.total -= 1.50
@@ -228,6 +264,7 @@ class RestaurantExpert(KnowledgeEngine):
     @Rule(
         AS.a << Item(product="mozzarella_sticks", used=False),
         AS.b << Item(product="fries", used=False),
+        salience=0,
     )
     def promo19(self, a, b):
         self.total -= 1.00
@@ -235,14 +272,20 @@ class RestaurantExpert(KnowledgeEngine):
         self.modify(a, used=True)
         self.modify(b, used=True)
 
-    @Rule()
+    @Rule(salience=-10)
     def discount_over_50(self):
         if self.total > 50:
-            discount = self.total * 0.10  # 10% z łącznej ceny
+            discount = self.total * 0.10
             self.total -= discount
             self.promotions.append(
                 f"Zniżka 10% na zamówienie powyżej 50 PLN: -{discount:.2f} PLN"
             )
+
+    @Rule(VIPStatus(status=True), salience=-20)
+    def vip_discount(self):
+        discount = self.total * 0.20
+        self.total -= discount
+        self.promotions.append(f"Klient VIP: -{discount:.2f} PLN")
 
 
 # --- GUI aplikacji ---
@@ -251,7 +294,7 @@ class App:
         self.root = root
         self.root.title("Restauracja - system regułowy")
         self.cart = []
-        self.item_counter = 0  # <--- licznik pozycji
+        self.item_counter = 0
 
         # --- Górna część: produkty i koszyk ---
         top_frame = tk.Frame(root, bg="#f8f9fa")
@@ -291,7 +334,6 @@ class App:
             )
             btn.grid(row=row, column=col, padx=5, pady=5)
 
-            # Kolejna kolumna lub wiersz
             col += 1
             if col == 2:
                 col = 0
@@ -318,14 +360,32 @@ class App:
         cart_scroll_y.pack(side="right", fill="y")
         self.cart_canvas.pack(side="left", fill="both", expand=True)
 
-        self.cart_frame = cart_frame  # Zapisujemy referencję do ramki koszyka
+        self.cart_frame = cart_frame
 
         # --- Dolna część: suma i promocje ---
         bottom_frame = tk.Frame(root, bg="#f8f9fa")
         bottom_frame.grid(row=1, column=0, padx=20, pady=10)
 
+        # Lewa kolumna: opcje (checkboxy)
+        left_options_frame = tk.Frame(bottom_frame, bg="#f8f9fa")
+        left_options_frame.grid(row=0, column=0, sticky="nw", padx=10)
+
+        self.vip_var = tk.BooleanVar()
+        vip_checkbox = tk.Checkbutton(
+            left_options_frame,
+            text="Klient VIP: -20% na całe zamówienie",
+            variable=self.vip_var,
+            bg="#f8f9fa",
+            font=("Arial", 10),
+        )
+        vip_checkbox.pack(anchor="w", pady=5)
+
+        # Prawa kolumna: suma, promocje, przycisk
+        right_summary_frame = tk.Frame(bottom_frame, bg="#f8f9fa")
+        right_summary_frame.grid(row=0, column=1, sticky="ne", padx=40)
+
         self.total_label = tk.Label(
-            bottom_frame,
+            right_summary_frame,
             text="Suma: 0.00 PLN",
             font=("Arial", 14, "bold"),
             bg="#f8f9fa",
@@ -333,7 +393,7 @@ class App:
         self.total_label.grid(row=0, column=0, pady=10)
 
         self.promotions_label = tk.Label(
-            bottom_frame,
+            right_summary_frame,
             text="",
             fg="green",
             justify="left",
@@ -343,7 +403,7 @@ class App:
         self.promotions_label.grid(row=1, column=0, pady=5)
 
         calculate_btn = tk.Button(
-            bottom_frame,
+            right_summary_frame,
             text="Oblicz zamówienie",
             command=self.calculate_total,
             bg="#5cb85c",
@@ -364,11 +424,9 @@ class App:
         self.update_cart()
 
     def update_cart(self):
-        # Usuwanie wcześniejszych przycisków w koszyku
         for widget in self.cart_frame.winfo_children():
             widget.destroy()
 
-        # Dodawanie nowych przycisków do koszyka
         row = 0
         col = 0
         for name in self.cart:
@@ -385,7 +443,6 @@ class App:
             )
             btn.grid(row=row, column=col, padx=5, pady=5)
 
-            # Kolejna kolumna lub wiersz
             col += 1
             if col == 2:
                 col = 0
@@ -398,6 +455,10 @@ class App:
     def calculate_total(self):
         engine = RestaurantExpert()
         engine.reset()
+
+        if self.vip_var.get():
+            engine.declare(VIPStatus(status=True))
+
         for i, product_name in enumerate(self.cart):
             engine.declare(
                 Item(name=f"{product_name}_{i}", product=product_name, used=False)
