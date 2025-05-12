@@ -1,4 +1,7 @@
-from gui.layout import run_app
+import tkinter as tk
+from gui import App
 
 if __name__ == "__main__":
-    run_app()
+    root = tk.Tk()
+    app = App(root)
+    root.mainloop()
