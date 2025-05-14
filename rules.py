@@ -72,7 +72,7 @@ class RestaurantExpert(KnowledgeEngine):
     )
     def promo3(self, a, b):
         self.total -= 1.00
-        self.promotions.append("Deser + cola: -1.00 PLN")
+        self.promotions.append("Lody + cola: -1.00 PLN")
         self.modify(a, used=True)
         self.modify(b, used=True)
 
@@ -116,7 +116,7 @@ class RestaurantExpert(KnowledgeEngine):
     )
     def promo7(self, a, b):
         self.total -= 2.00
-        self.promotions.append("Double + cola: -2.00 PLN")
+        self.promotions.append("Podwójny burger + cola: -2.00 PLN")
         self.modify(a, used=True)
         self.modify(b, used=True)
 
@@ -127,7 +127,7 @@ class RestaurantExpert(KnowledgeEngine):
     )
     def promo8(self, a, b):
         self.total -= 1.00
-        self.promotions.append("Nuggets + frytki: -1.00 PLN")
+        self.promotions.append("Nuggety + frytki: -1.00 PLN")
         self.modify(a, used=True)
         self.modify(b, used=True)
 
@@ -215,7 +215,7 @@ class RestaurantExpert(KnowledgeEngine):
     )
     def promo16(self, a, b):
         self.total -= 2.50
-        self.promotions.append("Vegan burger + smoothie: -2.50 PLN")
+        self.promotions.append("Wegański burger + smoothie: -2.50 PLN")
         self.modify(a, used=True)
         self.modify(b, used=True)
 
