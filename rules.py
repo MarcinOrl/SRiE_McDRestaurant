@@ -14,6 +14,10 @@ class VIPStatus(Fact):
     status: bool = False
 
 
+class PaperBag(Fact):
+    status: bool = False
+
+
 # --- Silnik regułowy ---
 class RestaurantExpert(KnowledgeEngine):
     def __init__(self):
@@ -25,19 +29,19 @@ class RestaurantExpert(KnowledgeEngine):
     def regular_price(self, product):
         self.total += PRODUCTS[product]
 
-    # @Rule(
-    #     AS.a << Item(product="burger", used=False, name=MATCH.na),
-    #     AS.b << Item(product="burger", used=False, name=MATCH.nb),
-    #     AS.c << Item(product="burger", used=False, name=MATCH.nc),
-    #     TEST(lambda na, nb, nc: na < nb < nc),
-    #     salience=10,
-    # )
-    # def three_burgers_in_two(self, a, b, c):
-    #     self.total -= PRODUCTS["burger"]
-    #     self.promotions.append("3 burgery w cenie 2: -10.99 PLN")
-    #     self.modify(a, used=True)
-    #     self.modify(b, used=True)
-    #     self.modify(c, used=True)
+    @Rule(
+        AS.a << Item(product="burger", used=False, name=MATCH.na),
+        AS.b << Item(product="burger", used=False, name=MATCH.nb),
+        AS.c << Item(product="burger", used=False, name=MATCH.nc),
+        TEST(lambda na, nb, nc: na < nb < nc),
+        salience=10,
+    )
+    def three_burgers_in_two(self, a, b, c):
+        self.total -= PRODUCTS["burger"]
+        self.promotions.append("3 burgery w cenie 2: -10.99 PLN")
+        self.modify(a, used=True)
+        self.modify(b, used=True)
+        self.modify(c, used=True)
 
     @Rule(
         AS.a << Item(product="burger", used=False),
@@ -262,3 +266,8 @@ class RestaurantExpert(KnowledgeEngine):
         discount = self.total * 0.20
         self.total -= discount
         self.promotions.append(f"Klient VIP: -{discount:.2f} PLN")
+
+    @Rule(PaperBag(status=True), salience=-30)
+    def add_bag_price(self):
+        self.total += 0.50
+        self.promotions.append("Torba papierowa: +0.50 PLN")

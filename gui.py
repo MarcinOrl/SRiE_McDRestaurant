@@ -1,5 +1,5 @@
 import tkinter as tk
-from rules import Item, VIPStatus, RestaurantExpert
+from rules import Item, VIPStatus, PaperBag, RestaurantExpert
 from products import PRODUCTS
 
 
@@ -95,6 +95,16 @@ class App:
         )
         vip_checkbox.pack(anchor="w", pady=5)
 
+        self.bag_var = tk.BooleanVar()
+        bag_checkbox = tk.Checkbutton(
+            left_options_frame,
+            text="Torba papierowa (+0.50 zł)",
+            variable=self.bag_var,
+            bg="#f8f9fa",
+            font=("Arial", 10),
+        )
+        bag_checkbox.pack(anchor="w", pady=5)
+
         # Prawa kolumna: suma, promocje, przycisk
         right_summary_frame = tk.Frame(bottom_frame, bg="#f8f9fa")
         right_summary_frame.grid(row=0, column=1, sticky="ne", padx=40)
@@ -173,6 +183,9 @@ class App:
 
         if self.vip_var.get():
             engine.declare(VIPStatus(status=True))
+
+        if self.bag_var.get():
+            engine.declare(PaperBag(status=True))
 
         for i, product_name in enumerate(self.cart):
             engine.declare(
